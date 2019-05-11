@@ -1,0 +1,13 @@
+.Admin-login {
+    margin: 30px auto;
+    max-width: 350px;
+}
+
+.Admin-login input {
+    margin-top: 10px;
+}
+
+.Admin-submit {
+    margin: 10px auto;
+    width: 100px;
+}

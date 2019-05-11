@@ -1,0 +1,19 @@
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+let api = require('./router');
+
+const app = express();
+
+app.use(bodyParser.json());
+app.use(
+    cors({
+        origin: '*',
+        credentials: true,
+        allowMethods: [ 'GET', 'POST', ],
+        allowedHeaders: [ 'Origin', 'X-Requested-With', 'Content-Type', 'Accept', ],
+    })
+);
+app.use('/api', api);
+
+module.exports = app;

@@ -1,0 +1,10 @@
+@import '~antd/dist/antd.css';
+
+
+.App-sider {
+    background: none;
+}
+
+.App-content {
+    padding: 100px;
+}
