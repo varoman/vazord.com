@@ -1,24 +1,38 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const User = require('../../db/models/user');
-const { NOT_FOUND, UNAUTHORIZED } = require('../../utils/codes');
-const { USER_NOT_EXISTS, WRONG_CREDENTIALS } = require('../../utils/messages');
+const { JWT_SECRET } = require('../../utils/secrets');
+const { NOT_FOUND, UNAUTHORIZED, SERVER_ERR } = require('../../utils/codes');
+const {
+    USER_NOT_EXISTS,
+    WRONG_CREDENTIALS,
+    SERVER_ERROR,
+} = require('../../utils/messages');
 
 
 const login = async (req, res) => {
+
     const { email, password } = req.body;
     const user = await User.findOne({ where: { email } });
+
     if (!user)
         return res
-        .status(NOT_FOUND)
-        .json({ message: USER_NOT_EXISTS });
+            .status(NOT_FOUND)
+            .json({ message: USER_NOT_EXISTS });
 
     const passMatch = await bcrypt.compare(password, user.password);
+
     if(!passMatch)
         return res
             .status(UNAUTHORIZED)
             .json({ message: WRONG_CREDENTIALS });
 
-    res.end();
+    jwt.sign({ role: user.role }, JWT_SECRET, (err, token) => {
+        if (err)
+            return res.status(SERVER_ERR).json({ message: SERVER_ERROR });
+
+        res.json({ token });
+    });
 };
 
 
