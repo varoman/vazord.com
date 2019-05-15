@@ -8,3 +8,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #f0f2f5!important;
 }
+
+.error-message {
+  color: red;
+  text-align: center;
+}

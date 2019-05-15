@@ -9,14 +9,14 @@ class Login extends Component {
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            errorMessage: ''
         };
     }
 
     handleInputChange = e => {
         const name = e.target.name;
         this.setState({ [name]: e.target.value });
-        console.log(this.state, 'this.state')
     };
 
     handleFormSubmit = e => {
@@ -28,29 +28,36 @@ class Login extends Component {
             password
         })
             .then(res => console.log(res, 'res'))
-            .catch(err => console.log(err, 'err'))
+            .catch(err => {
+                if (err.response)
+                    this.setState({ errorMessage: err.response.data.message })
+            })
     };
 
     render() {
+        const { email, password, errorMessage } = this.state;
         return (
             <div className="Admin-login">
                 <form onSubmit={this.handleFormSubmit}>
                     <Input
                         name="email"
                         onChange={this.handleInputChange}
-                        value={this.state.email}
+                        value={email}
                         type="email"
+                        required
                         placeholder="email" />
                     <Input
                         name="password"
                         onChange={this.handleInputChange}
-                        value={this.state.password}
+                        value={password}
                         type="password"
                         minLength="8"
+                        required
                         placeholder="password" />
+                    <p className="error-message">{errorMessage}</p>
                     <div className="Admin-submit">
                         <Button
-                            disabled={!this.state.email || !this.state.password}
+                            disabled={!email || !password}
                             type="primary"
                             htmlType="submit"
                         >Login</Button>
