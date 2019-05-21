@@ -5,12 +5,11 @@
 }
 
 .Navigation-container {
-    height: 100vh;
+    height: 80vh;
     border-radius: 9px;
     box-shadow: 0 0 5px grey!important;
-}
-
-.ant-layout-sider-zero-width-trigger {
-    position: absolute;
-    top: 0!important;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: fixed;
+    max-width: 300px;
 }

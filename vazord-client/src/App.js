@@ -16,7 +16,7 @@ const App = () =>  (
                 <div className="App">
                     <Layout>
                         <AppHeader/>
-                        <Layout style={{backgroundColor: '#fff'}}>
+                        <Layout className="App-layout">
                             <Sidebar/>
                             <Content className="App-content">
                                 <Route path="/" exact component={Welcome} />

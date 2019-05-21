@@ -1,4 +1,5 @@
 import React from 'react';
+import team from '../../images/team.jpg'
 
 
 export default () => (
@@ -19,5 +20,6 @@ export default () => (
        <p>
            <a href="https://www.facebook.com/events/295734587829202/" target="_blank">Ամեն Երկուշաբթի և Հինգշաբթի</a>
        </p>
+       <img src={team} alt="team photo" />
    </div>
 );
