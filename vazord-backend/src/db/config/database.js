@@ -1,8 +1,8 @@
 module.exports = {
   development: {
     username: 'postgres',
-    password: 'postgres',
-    database: 'vazord_db',
+    password: 'vazordcom',
+    database: 'vazord',
     host: '127.0.0.1',
     dialect: 'postgres'
   },

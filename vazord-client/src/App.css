@@ -3,8 +3,11 @@
 
 .App-sider {
     background: none;
+    position: relative;
+    left: 30px;
+    top: 30px;
 }
 
 .App-content {
-    padding: 100px;
+    padding: 30px 50px;
 }

@@ -64,9 +64,9 @@ const generateSubcategories = subcategories => {
 
 export default () => (
     <Sider
-        className="App-sider"
+        className="App-sider"/*
         collapsible={true}
-        collapsedWidth="0"
+        collapsedWidth="0"*/
         width="300px"
     >
         <Menu
