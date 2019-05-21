@@ -15,11 +15,19 @@ export default () => (
        </p>
        <p>
            Պարապմունքների մասին մանրամասն ծանոթանալու և ամենաթարմ նորությունների համար այցելեք մեր ֆեյսբուքյան&nbsp;
-           <a href="https://www.facebook.com/groups/vazord/" target="_blank">խումբը</a> և հետևեք մեր event-ներին:
+           <a
+               rel="noopener noreferrer"
+               href="https://www.facebook.com/groups/vazord/"
+               target="_blank"
+           >խումբը</a> և հետևեք մեր event-ներին:
        </p>
        <p>
-           <a href="https://www.facebook.com/events/295734587829202/" target="_blank">Ամեն Երկուշաբթի և Հինգշաբթի</a>
+           <a
+               rel="noopener noreferrer"
+               href="https://www.facebook.com/events/295734587829202/"
+               target="_blank"
+           >Ամեն Երկուշաբթի և Հինգշաբթի</a>
        </p>
-       <img src={team} alt="team photo" />
+       <img src={team} alt="team" />
    </div>
 );

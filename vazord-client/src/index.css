@@ -13,3 +13,6 @@ body {
   color: red;
   text-align: center;
 }
+
+.ant-menu-submenu::after {
+}

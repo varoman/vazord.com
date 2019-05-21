@@ -71,8 +71,6 @@ export default () => (
     >
         <Menu
             className="Navigation-container"
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
             mode="inline"
         >
             {generateCategories()}
