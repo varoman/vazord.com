@@ -11,8 +11,6 @@ const { Sider } = Layout;
 export default () => (
     <Sider
         className="App-sider"
-        collapsible={true}
-        collapsedWidth="0"
         width="300px"
     >
         <Menu
@@ -22,8 +20,13 @@ export default () => (
             mode="inline"
         >
             <Menu.Item><Link to='topics'/>Topics</Menu.Item>
+            <hr/>
             <Menu.Item>Subtopics</Menu.Item>
+            <hr/>
             <Menu.Item>Articles</Menu.Item>
+            <hr/>
+            <Menu.Item>Logout</Menu.Item>
+            <hr/>
         </Menu>
     </Sider>
 );

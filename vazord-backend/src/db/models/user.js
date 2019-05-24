@@ -1,32 +1,41 @@
-const sequelize = require('../../db/index');
+const bcrypt = require('bcrypt');
+const { SALT_ROUNDS } = require('../../utils/constants');
+const sequelize = require('../../db/');
 const { STRING } = require('sequelize');
 
 
 const User = sequelize.define('User', {
-  firstName: {
-    type: STRING,
-    allowNull: false,
-  },
-  lastName: {
+  name: {
     type: STRING,
     allowNull: false,
   },
   email: {
     type: STRING,
     allowNull: false,
+    validate: {
+      isEmail: true
+    }
   },
   password: {
     type: STRING,
     allowNull: false,
+    validate: {
+      len: [8, 255],
+    }
   },
   role: {
     type: STRING,
     allowNull: false,
+    validate: {
+      isIn: [['admin', 'super']],
+    }
   },
 }, {});
 
-User.associate = function(models) {
-  // associations can be defined here
-};
+User.beforeCreate((user, options) => {
+  bcrypt.hash(user.password, SALT_ROUNDS, (err, hash) => {
+    user.passord = hash;
+  });
+});
 
 module.exports = User;

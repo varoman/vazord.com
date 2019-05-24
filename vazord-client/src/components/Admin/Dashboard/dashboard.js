@@ -9,11 +9,11 @@ const { Content } = Layout;
 
 export default () => (
     <Layout>
-        <Sidebar/>
-        <Layout>
-            <AppHeader/>
+        <AppHeader/>
+        <Layout className="App-layout">
+            <Sidebar/>
             <Content className="Dashboard-content">
-                <Route path="topics" component={() => <span>this is topics</span>} />
+                <Route path="/admin/dashboard/topics" component={() => <h1>this is topics</h1>} />
             </Content>
         </Layout>
     </Layout>
