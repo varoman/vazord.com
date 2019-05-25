@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
-import api from '../../axios';
+import api from './index';
 
 
 Modal.setAppElement('#root');
@@ -18,7 +18,6 @@ const customStyles = {
     }
 };
 
-
 export default () => {
 
     const [ isOpen, toggleModal ] = useState(false);
@@ -29,12 +28,14 @@ export default () => {
     }, [ isOpen ]);
 
     api.interceptors.response.use(
-        response => response,
+        response => response.data,
         error => {
-            const message = error.response.data.message;
+            let message = 'something went wrong :(';
+            if (error && error.response && error.response.data)
+                message = error.response.data.message;
             toggleModal(true);
             setMessage(message);
-            return Promise.reject(message);
+            return Promise.reject(error);
         });
 
     return (

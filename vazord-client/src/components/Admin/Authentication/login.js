@@ -20,7 +20,7 @@ class Login extends Component {
     }
 
     handleInputChange = e => {
-        const name = e.target.name;
+        const { name } = e.target;
         this.setState({ [name]: e.target.value });
     };
 
@@ -34,7 +34,7 @@ class Login extends Component {
                 password
             })
             .then((res) => {
-                localStorage.setItem('token', res.data.token);
+                localStorage.setItem('token', res.token);
                 localStorage.setItem('isAuth', 'true');
                 this.props.history.push('/admin/dashboard');
             });

@@ -23,3 +23,7 @@ body {
 .ant-input-suffix {
   top: 63%!important;
 }
+
+.modal-overlay {
+  background: none;
+}

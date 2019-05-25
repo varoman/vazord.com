@@ -1,0 +1,18 @@
+.topic-input {
+    max-width: 400px;
+    margin-bottom: 30px;
+}
+
+.Link {
+    color: blue;
+    cursor: pointer;
+}
+
+.delete {
+    color: red;
+}
+
+.topic-input-item {
+    width: 70%!important;
+    margin-right: 7px!important;
+}

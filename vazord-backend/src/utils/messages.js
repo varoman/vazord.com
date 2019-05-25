@@ -5,5 +5,6 @@ module.exports = {
     USER_CREATE_FAIL: 'Could not create user. Try again',
     WRONG_CREDENTIALS: 'Wrong credentials provided',
     SERVER_ERROR: 'Server error occurred',
-    NOT_AUTHORIZED: 'You are not authorized'
+    NOT_AUTHORIZED: 'You are not authorized',
+    TOPIC_CREATED: 'Topic created successfully'
 };
