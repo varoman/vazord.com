@@ -4,5 +4,6 @@ module.exports = {
     USER_EXISTS: 'User with this email already exist',
     USER_CREATE_FAIL: 'Could not create user. Try again',
     WRONG_CREDENTIALS: 'Wrong credentials provided',
-    SERVER_ERROR: 'Server error occurred'
+    SERVER_ERROR: 'Server error occurred',
+    NOT_AUTHORIZED: 'You are not authorized'
 };

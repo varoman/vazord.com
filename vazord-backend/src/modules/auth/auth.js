@@ -27,7 +27,7 @@ const login = async (req, res) => {
             .status(UNAUTHORIZED)
             .json({ message: WRONG_CREDENTIALS });
 
-    jwt.sign({ role: user.role }, JWT_SECRET, (err, token) => {
+    jwt.sign({ role: user.role, email: user.email }, JWT_SECRET, (err, token) => {
         if (err)
             return res.status(SERVER_ERR).json({ message: SERVER_ERROR });
 

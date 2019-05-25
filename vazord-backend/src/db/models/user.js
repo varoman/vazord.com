@@ -32,9 +32,9 @@ const User = sequelize.define('User', {
   },
 }, {});
 
-User.beforeCreate((user, options) => {
-  bcrypt.hash(user.password, SALT_ROUNDS, (err, hash) => {
-    user.passord = hash;
+User.beforeCreate(user => {
+  return bcrypt.hash(user.password, SALT_ROUNDS).then(hash => {
+    user.password = hash;
   });
 });
 

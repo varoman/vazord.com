@@ -14,6 +14,14 @@ class Login extends Component {
         };
     }
 
+    componentDidMount() {
+        // if the user is authenticated redirect to dashboard
+        api
+            .get('/auth/isAuth')
+            .then(() => this.props.history.push('/admin/dashboard'))
+            .catch((err) => console.warn(err));
+    }
+
     handleInputChange = e => {
         const name = e.target.name;
         this.setState({ [name]: e.target.value });
@@ -23,14 +31,18 @@ class Login extends Component {
         e.preventDefault();
         const { email, password } = this.state;
 
-        api.post('/auth/login', {
-            email,
-            password
-        })
-            .then(res => console.log(res, 'res'))
+        api
+            .post('/auth/login', {
+                email,
+                password
+            })
+            .then((res) => {
+                localStorage.setItem('token', res.data.token);
+                this.props.history.push('/admin/dashboard');
+            })
             .catch(err => {
                 if (err.response)
-                    this.setState({ errorMessage: err.response.data.message })
+                    this.setState({ errorMessage: err.response.data.message });
             })
     };
 
@@ -64,8 +76,8 @@ class Login extends Component {
                     </div>
                 </form>
             </div>
-        )
-    }
+        );
+    };
 }
 
 export default Login;

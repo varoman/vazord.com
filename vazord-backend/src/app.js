@@ -13,7 +13,7 @@ app.use(
         origin: '*',
         credentials: true,
         allowMethods: [ 'GET', 'POST', ],
-        allowedHeaders: [ 'Origin', 'X-Requested-With', 'Content-Type', 'Accept', ],
+        allowedHeaders: [ 'Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
     })
 );
 app.use('/api', api);
