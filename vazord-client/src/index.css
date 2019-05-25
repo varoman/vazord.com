@@ -1,3 +1,7 @@
+html {
+  height: inherit!important;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -7,11 +11,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #ffffff!important;
-}
-
-.error-message {
-  color: red;
-  text-align: center;
 }
 
 .ant-menu-submenu::after {

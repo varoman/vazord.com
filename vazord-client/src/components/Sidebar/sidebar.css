@@ -13,3 +13,11 @@
     position: fixed;
     max-width: 300px;
 }
+
+.logout {
+    color: red;
+}
+
+.logout:hover {
+    color: red!important;
+}

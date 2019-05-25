@@ -10,16 +10,13 @@ class Login extends Component {
         this.state = {
             email: '',
             password: '',
-            errorMessage: ''
         };
     }
 
     componentDidMount() {
         // if the user is authenticated redirect to dashboard
-        api
-            .get('/auth/isAuth')
-            .then(() => this.props.history.push('/admin/dashboard'))
-            .catch((err) => console.warn(err));
+        if (localStorage.getItem('isAuth'))
+            this.props.history.push('/admin/dashboard');
     }
 
     handleInputChange = e => {
@@ -38,12 +35,9 @@ class Login extends Component {
             })
             .then((res) => {
                 localStorage.setItem('token', res.data.token);
+                localStorage.setItem('isAuth', 'true');
                 this.props.history.push('/admin/dashboard');
-            })
-            .catch(err => {
-                if (err.response)
-                    this.setState({ errorMessage: err.response.data.message });
-            })
+            });
     };
 
     render() {
@@ -66,7 +60,6 @@ class Login extends Component {
                         minLength="8"
                         required
                         placeholder="password" />
-                    <p className="error-message">{errorMessage}</p>
                     <div className="Admin-submit">
                         <Button
                             disabled={!email || !password}
@@ -79,5 +72,6 @@ class Login extends Component {
         );
     };
 }
+
 
 export default Login;

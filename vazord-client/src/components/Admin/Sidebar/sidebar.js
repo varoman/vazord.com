@@ -1,32 +1,36 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
-
 import '../../../components/Sidebar/sidebar.css';
 
 
 const { Sider } = Layout;
 
+const handleLogout = history => {
+    localStorage.clear();
+    history.push('/admin');
+};
 
-export default () => (
-    <Sider
-        className="App-sider"
-        width="300px"
-    >
-        <Menu
-            className="Navigation-container"
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
-            mode="inline"
+const Logout = withRouter(({ history }) => (<p onClick={() => handleLogout(history)}>Logout</p>));
+
+export default () => {
+
+    return (
+        <Sider
+            className="App-sider"
+            width="300px"
         >
-            <Menu.Item><Link to='topics'/>Topics</Menu.Item>
-            <hr/>
-            <Menu.Item>Subtopics</Menu.Item>
-            <hr/>
-            <Menu.Item>Articles</Menu.Item>
-            <hr/>
-            <Menu.Item>Logout</Menu.Item>
-            <hr/>
-        </Menu>
-    </Sider>
-);
+            <Menu
+                className="Navigation-container"
+                mode="inline"
+            >
+                <Menu.Item className="Navigation-text"><Link to='/admin/dashboard/topics'/>Topics</Menu.Item>
+                <Menu.Item className="Navigation-text">Subtopics</Menu.Item>
+                <Menu.Item className="Navigation-text">Articles</Menu.Item>
+                <Menu.Item className="Navigation-text logout"><Logout/></Menu.Item>
+            </Menu>
+        </Sider>
+    );
+};
+
+
