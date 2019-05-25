@@ -15,3 +15,11 @@ body {
 
 .ant-menu-submenu::after {
 }
+
+.ant-menu-submenu:hover {
+  background-color: #E6F7FF;
+}
+
+.ant-input-suffix {
+  top: 63%!important;
+}

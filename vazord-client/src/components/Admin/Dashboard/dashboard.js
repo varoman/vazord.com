@@ -2,6 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import { AppHeader } from '../../index';
 import Sidebar from '../Sidebar/sidebar'
+import Topics from '../Topics/topics'
 import { Layout } from 'antd';
 
 
@@ -12,8 +13,8 @@ export default () => (
         <AppHeader/>
         <Layout className="App-layout">
             <Sidebar/>
-            <Content className="Dashboard-content">
-                <Route path="/admin/dashboard/topics" component={() => <h1>this is topics</h1>} />
+            <Content className="App-content">
+                <Route path="/admin/dashboard/topics" component={Topics} />
             </Content>
         </Layout>
     </Layout>

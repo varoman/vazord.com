@@ -21,3 +21,7 @@
 .logout:hover {
     color: red!important;
 }
+
+.Navigation-text:hover {
+    background-color: #E6F7FF;
+}

@@ -41,7 +41,7 @@ class Login extends Component {
     };
 
     render() {
-        const { email, password, errorMessage } = this.state;
+        const { email, password } = this.state;
         return (
             <div className="Admin-login">
                 <form onSubmit={this.handleFormSubmit}>
@@ -52,11 +52,10 @@ class Login extends Component {
                         type="email"
                         required
                         placeholder="email" />
-                    <Input
+                    <Input.Password
                         name="password"
                         onChange={this.handleInputChange}
                         value={password}
-                        type="password"
                         minLength="8"
                         required
                         placeholder="password" />
