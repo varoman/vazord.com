@@ -2,36 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Input, Table, Button } from 'antd';
 import api from '../../../axios';
 import { SuccessModal } from '../../../components';
+import EditTopicModal from './EditTopicModal/editTopicModal';
 import './topics.css';
 
 
-const columns = [
-    {
-        title: 'Title',
-        dataIndex: 'title',
-        key: 'title',
-        render: text => <span>{text}</span>,
-    },
-    {
-        title: 'Subtitles',
-        dataIndex: 'subtitles',
-        key: 'subtitles',
-    },
-    {
-        title: 'Articles',
-        dataIndex: 'articles',
-        key: 'articles',
-    },
-    {
-        title: 'Action',
-        key: 'action',
-        render: () => (
-            <span>
-                <span className="Link">Edit</span> | <span className="Link delete">Delete</span>
-            </span>
-        ),
-    },
-];
+const getTopics = handler => {
+    api
+        .get('/topic/all')
+        .then(res =>  handler(res));
+};
 
 export default () => {
 
@@ -39,10 +18,11 @@ export default () => {
     const [ message, setMessage ] = useState('');
     const [ isOpen, toggleModal ] = useState(false);
     const [ topics, setTopics ] = useState([]);
+    const [ isEditing, setIsEditing ] = useState(false);
+    const [ selectedTopic, setSelectedTopic ] = useState(null);
 
     useEffect(() => {
-        api.get('/topic/all')
-            .then(res =>  setTopics(res));
+        getTopics(setTopics);
     }, [ ]);
 
     const handleAddTopic = () => {
@@ -52,14 +32,50 @@ export default () => {
                 setMessage(res.message);
                 setNewTopic('');
                 toggleModal(true);
+                getTopics(setTopics);
             });
     };
 
-    const data = topics.reduce((acc, curr,) => {
+    const handleTopicEdit = topic => {
+        setIsEditing(true);
+        setSelectedTopic(topic);
+    };
+
+    const columns = [
+        {
+            title: 'Title',
+            dataIndex: 'title',
+            key: 'title',
+            render: text => <span>{text}</span>,
+        },
+        {
+            title: 'Subtopics',
+            dataIndex: 'subtopics',
+            key: 'subtopics',
+        },
+        {
+            title: 'Articles',
+            dataIndex: 'articles',
+            key: 'articles',
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            render: topic => (
+                <span>
+                    <span
+                        onClick={() => handleTopicEdit(topic)}
+                        className="Link">Edit</span> | <span className="Link delete">Delete</span>
+                </span>
+            ),
+        },
+    ];
+
+    const data = topics.reduce((acc, curr) => {
         acc.push({
             key: curr.id,
             title: curr.title,
-            subtitles: 0,
+            subtopics: 0,
             articles: 0
         });
 
@@ -72,6 +88,11 @@ export default () => {
                 message={message}
                 isOpen={isOpen}
                 toggleModal={toggleModal}
+            />
+            <EditTopicModal
+                isOpen={isEditing}
+                toggleModal={setIsEditing}
+                selectedTopic={selectedTopic}
             />
             <h1>Topics</h1>
             <div className="topic-input">
@@ -89,7 +110,11 @@ export default () => {
                     onClick={handleAddTopic}
                 >Add</Button>
             </div>
-            <Table columns={columns} dataSource={data} pagination={false} />
+            <Table
+                columns={columns}
+                dataSource={data}
+                pagination={false}
+            />
         </div>
     );
 };

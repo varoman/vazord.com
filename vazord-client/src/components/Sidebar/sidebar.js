@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+/*import { Link } from 'react-router-dom';*/
 import { Layout, Menu } from 'antd';
 import api from '../../axios';
 import './sidebar.css';
@@ -8,6 +8,7 @@ import './sidebar.css';
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
+/*
 const contents = [
     {
         category: 'Սկսնակներ',
@@ -45,6 +46,7 @@ const generateSubcategories = subcategories => {
     });
     return nodes;
 };
+*/
 
 const generateCategories = topics => {
     let nodes = [];
