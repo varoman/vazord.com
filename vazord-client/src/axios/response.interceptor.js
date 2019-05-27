@@ -34,7 +34,7 @@ export default () => {
             if (error && error.response && error.response.data)
                 message = error.response.data.message;
             toggleModal(true);
-            setMessage(message);
+            setMessage(message.toString());
             return Promise.reject(error);
         });
 

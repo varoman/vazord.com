@@ -6,24 +6,24 @@ import EditTopicModal from './EditTopicModal/editTopicModal';
 import './topics.css';
 
 
-const getTopics = handler => {
-    api
-        .get('/topic/all')
-        .then(res =>  handler(res));
-};
-
 export default () => {
 
     const [ newTopic, setNewTopic ] = useState('');
     const [ message, setMessage ] = useState('');
-    const [ isOpen, toggleModal ] = useState(false);
+    const [ isOpen, toggleSuccessModal ] = useState(false);
     const [ topics, setTopics ] = useState([]);
     const [ isEditing, setIsEditing ] = useState(false);
     const [ selectedTopic, setSelectedTopic ] = useState(null);
 
     useEffect(() => {
-        getTopics(setTopics);
+        getTopics();
     }, [ ]);
+
+    const getTopics = () => {
+        api
+            .get('/topic/all')
+            .then(res =>  setTopics(res));
+    };
 
     const handleAddTopic = () => {
         api
@@ -31,9 +31,15 @@ export default () => {
             .then((res) => {
                 setMessage(res.message);
                 setNewTopic('');
-                toggleModal(true);
-                getTopics(setTopics);
+                toggleSuccessModal(true);
+                getTopics();
             });
+    };
+
+    const handleUpdateTopic = message => {
+        toggleSuccessModal(true);
+        setMessage(message);
+        getTopics();
     };
 
     const handleTopicEdit = topic => {
@@ -65,7 +71,9 @@ export default () => {
                 <span>
                     <span
                         onClick={() => handleTopicEdit(topic)}
-                        className="Link">Edit</span> | <span className="Link delete">Delete</span>
+                        className="Link">Edit
+                    </span> |&nbsp;
+                     <span className="Link delete">Delete</span>
                 </span>
             ),
         },
@@ -87,13 +95,16 @@ export default () => {
             <SuccessModal
                 message={message}
                 isOpen={isOpen}
-                toggleModal={toggleModal}
+                toggleModal={toggleSuccessModal}
             />
-            <EditTopicModal
-                isOpen={isEditing}
-                toggleModal={setIsEditing}
-                selectedTopic={selectedTopic}
-            />
+            { isEditing ?
+                <EditTopicModal
+                    isOpen={isEditing}
+                    toggleModal={setIsEditing}
+                    selectedTopic={selectedTopic}
+                    onClose={handleUpdateTopic}
+                /> : null
+            }
             <h1>Topics</h1>
             <div className="topic-input">
                 <Input

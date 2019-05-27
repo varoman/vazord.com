@@ -1,6 +1,6 @@
 const Topic = require('../../db/models/topic');
-const { CREATED, BAD_REQUEST, SERVER_ERR } = require('../../utils/codes');
-const { TOPIC_CREATED } = require('../../utils/messages');
+const { CREATED, BAD_REQUEST, SERVER_ERR, OK } = require('../../utils/codes');
+const { TOPIC_CREATED, TOPIC_UPDATED } = require('../../utils/messages');
 
 
 const create = (req, res) => {
@@ -9,7 +9,15 @@ const create = (req, res) => {
     Topic
         .create({ title })
         .then(() => res.status(CREATED).json({ message: TOPIC_CREATED}))
-        .catch(err => res.status(BAD_REQUEST).json({ message: err }));
+        .catch(err => res.status(BAD_REQUEST).json({ message: err.errors[0].message }));
+};
+
+const update = (req, res) => {
+    const { title, id } = req.body;
+    Topic
+        .update({ title }, { where: { id } })
+        .then(() => res.status(OK).json({ message: TOPIC_UPDATED}))
+        .catch(err => res.status(BAD_REQUEST).json({ message: err.errors[0].message }));
 };
 
 const list = (req, res) => {
@@ -23,4 +31,5 @@ const list = (req, res) => {
 module.exports = {
     create,
     list,
+    update,
 };
