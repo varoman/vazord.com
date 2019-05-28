@@ -7,5 +7,6 @@ module.exports = {
     SERVER_ERROR: 'Server error occurred',
     NOT_AUTHORIZED: 'You are not authorized',
     TOPIC_CREATED: 'Topic created successfully',
-    TOPIC_UPDATED: 'Topic successfully updated'
+    TOPIC_UPDATED: 'Topic successfully updated',
+    TOPIC_DELETED: 'Topic deleted successfully'
 };

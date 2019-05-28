@@ -1,6 +1,6 @@
 const Topic = require('../../db/models/topic');
 const { CREATED, BAD_REQUEST, SERVER_ERR, OK } = require('../../utils/codes');
-const { TOPIC_CREATED, TOPIC_UPDATED } = require('../../utils/messages');
+const { TOPIC_CREATED, TOPIC_UPDATED, TOPIC_DELETED } = require('../../utils/messages');
 
 
 const create = (req, res) => {
@@ -20,6 +20,14 @@ const update = (req, res) => {
         .catch(err => res.status(BAD_REQUEST).json({ message: err.errors[0].message }));
 };
 
+const remove = (req, res) => {
+    const { id } = req.body;
+    Topic
+        .destroy({ where: { id } })
+        .then(() => res.status(OK).json({ message: TOPIC_DELETED }))
+        .catch(err => res.status(BAD_REQUEST).json({ message: err.errors[0].message }));
+};
+
 const list = (req, res) => {
     Topic
         .findAll()
@@ -30,6 +38,7 @@ const list = (req, res) => {
 
 module.exports = {
     create,
-    list,
     update,
+    remove,
+    list
 };

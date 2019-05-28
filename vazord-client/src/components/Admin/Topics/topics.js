@@ -3,16 +3,16 @@ import { Input, Table, Button } from 'antd';
 import api from '../../../axios';
 import { SuccessModal } from '../../../components';
 import EditTopicModal from './EditTopicModal/editTopicModal';
+import RemoveTopicModal from './RemoveTopicModal/removeTopicModal';
 import './topics.css';
 
 
 export default () => {
 
     const [ newTopic, setNewTopic ] = useState('');
-    const [ message, setMessage ] = useState('');
-    const [ isOpen, toggleSuccessModal ] = useState(false);
     const [ topics, setTopics ] = useState([]);
     const [ isEditing, setIsEditing ] = useState(false);
+    const [ isDeleting, setIsDeleting ] = useState(false);
     const [ selectedTopic, setSelectedTopic ] = useState(null);
 
     useEffect(() => {
@@ -29,21 +29,24 @@ export default () => {
         api
             .post('/topic/create', { title: newTopic})
             .then((res) => {
-                setMessage(res.message);
+                SuccessModal(res.message);
                 setNewTopic('');
-                toggleSuccessModal(true);
                 getTopics();
             });
     };
 
-    const handleUpdateTopic = message => {
-        toggleSuccessModal(true);
-        setMessage(message);
+    const handleModalClose = message => {
+        SuccessModal(message);
         getTopics();
     };
 
     const handleTopicEdit = topic => {
         setIsEditing(true);
+        setSelectedTopic(topic);
+    };
+
+    const handleTopicDelete = topic => {
+        setIsDeleting(true);
         setSelectedTopic(topic);
     };
 
@@ -71,9 +74,10 @@ export default () => {
                 <span>
                     <span
                         onClick={() => handleTopicEdit(topic)}
-                        className="Link">Edit
-                    </span> |&nbsp;
-                     <span className="Link delete">Delete</span>
+                        className="Link">Edit</span> |&nbsp;
+                    <span
+                        onClick={() => handleTopicDelete(topic)}
+                        className="Link delete">Delete</span>
                 </span>
             ),
         },
@@ -92,17 +96,20 @@ export default () => {
 
     return (
         <div>
-            <SuccessModal
-                message={message}
-                isOpen={isOpen}
-                toggleModal={toggleSuccessModal}
-            />
             { isEditing ?
                 <EditTopicModal
                     isOpen={isEditing}
                     toggleModal={setIsEditing}
                     selectedTopic={selectedTopic}
-                    onClose={handleUpdateTopic}
+                    onClose={handleModalClose}
+                /> : null
+            }
+            { isDeleting ?
+                <RemoveTopicModal
+                    isOpen={isDeleting}
+                    toggleModal={setIsDeleting}
+                    selectedTopic={selectedTopic}
+                    onClose={handleModalClose}
                 /> : null
             }
             <h1>Topics</h1>

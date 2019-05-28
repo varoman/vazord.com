@@ -1,0 +1,22 @@
+{
+  "name": "vazord.com",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node vazord-backend/src | npm start --prefix vazord-client",
+    "start-dev": "nodemon vazord-backend/src | npm start --prefix vazord-client",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/varoman/vazord.com.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/varoman/vazord.com/issues"
+  },
+  "homepage": "https://github.com/varoman/vazord.com#readme"
+}
