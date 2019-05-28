@@ -1,8 +1,6 @@
-import React, {useState} from 'react';
-import Modal from 'react-modal';
-import { Input, Button } from 'antd';
+import React, { useState } from 'react';
+import { Input, Modal } from 'antd';
 import api from '../../../../axios';
-import './editTopicModal.css';
 
 
 export default ({ isOpen, toggleModal, selectedTopic, onClose }) => {
@@ -21,24 +19,18 @@ export default ({ isOpen, toggleModal, selectedTopic, onClose }) => {
     return (
         <div>
             <Modal
-                className="edit-topic"
-                isOpen={isOpen}
+                title="Edit Topic"
+                centered
+                visible={isOpen}
+                okText="Yes"
+                onOk={handleSave}
+                onCancel={() => toggleModal(false)}
             >
-                <h1 className='topic-title'>Edit Topic</h1>
                 <div className='input-container'>
                     <Input
                         onChange={(e) => setTitle(e.target.value)}
                         minLength="1"
                         value={topicTitle} />
-                </div>
-                <div className="button-container">
-                    <Button
-                        disabled={!topicTitle}
-                        onClick={handleSave}
-                        type="primary">Save</Button>
-                    <Button
-                        onClick={() => toggleModal(false)}
-                        type="danger">Cancel</Button>
                 </div>
             </Modal>
         </div>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Modal, Icon } from 'antd';
 import api from '../../../../axios';
-import '../EditTopicModal/editTopicModal.css';
 
 
 export default ({ isOpen, toggleModal, selectedTopic, onClose }) => {
@@ -18,7 +17,7 @@ export default ({ isOpen, toggleModal, selectedTopic, onClose }) => {
     return (
         <div>
             <Modal
-                title={<span><Icon type='warning' style={{color: 'red'}}/> Delete topic</span>}
+                title={<span><Icon type='warning' style={{color: 'red'}}/> Delete Topic</span>}
                 centered
                 visible={isOpen}
                 okText="Yes"
