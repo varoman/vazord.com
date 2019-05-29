@@ -30,6 +30,7 @@ export default ({ isOpen, toggleModal, selectedTopic, onClose }) => {
                     <Input
                         onChange={(e) => setTitle(e.target.value)}
                         minLength="1"
+                        autoFocus
                         value={topicTitle} />
                 </div>
             </Modal>

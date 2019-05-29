@@ -31,7 +31,10 @@ const login = async (req, res) => {
         if (err)
             return res.status(SERVER_ERR).json({ message: SERVER_ERROR });
 
-        res.json({ token });
+        res.json({
+            token,
+            user: { email: user.email, name: user.name }
+        });
     });
 };
 
