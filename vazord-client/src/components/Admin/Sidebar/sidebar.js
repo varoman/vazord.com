@@ -24,8 +24,12 @@ export default () => {
                 className="Navigation-container"
                 mode="inline"
             >
-                <Menu.Item className="Navigation-text"><Link to='/admin/dashboard/topics'/>Topics</Menu.Item>
-                <Menu.Item className="Navigation-text">Subtopics</Menu.Item>
+                <Menu.Item className="Navigation-text">
+                    <Link to='/admin/dashboard/topics'/>Topics
+                </Menu.Item>
+                <Menu.Item className="Navigation-text">
+                    <Link to='/admin/dashboard/subtopics'/>Subtopics
+                </Menu.Item>
                 <Menu.Item className="Navigation-text">Articles</Menu.Item>
                 <Menu.Item className="Navigation-text logout"><Logout/></Menu.Item>
             </Menu>
