@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Input, Table, Button } from 'antd';
+import { Table, Button } from 'antd';
 import api from '../../../axios';
 import { SuccessModal } from '../../../components';
 import EditTopicModal from './EditTopicModal/editTopicModal';
 import RemoveTopicModal from './RemoveTopicModal/removeTopicModal';
+import AddTopicModal from './AddTopicModal/addTopicModal';
 import './topics.css';
 
 
 export default () => {
 
-    const [ newTopic, setNewTopic ] = useState('');
     const [ topics, setTopics ] = useState([]);
     const [ isEditing, setIsEditing ] = useState(false);
     const [ isDeleting, setIsDeleting ] = useState(false);
+    const [ isAdding, setIsAdding ] = useState(false);
     const [ selectedTopic, setSelectedTopic ] = useState(null);
 
     useEffect(() => {
@@ -23,16 +24,6 @@ export default () => {
         api
             .get('/topic/all')
             .then(res =>  setTopics(res));
-    };
-
-    const handleAddTopic = () => {
-        api
-            .post('/topic/create', { title: newTopic})
-            .then((res) => {
-                SuccessModal(res.message);
-                setNewTopic('');
-                getTopics();
-            });
     };
 
     const handleModalClose = message => {
@@ -112,21 +103,20 @@ export default () => {
                     onClose={handleModalClose}
                 /> : null
             }
+            { isAdding ?
+                <AddTopicModal
+                    isOpen={isAdding}
+                    toggleModal={setIsAdding}
+                    onClose={handleModalClose}
+                /> : null
+            }
             <h1>Topics</h1>
-            <div className="topic-input">
-                <Input
-                    required
-                    className="topic-input-item"
-                    placeholder="Enter topic title"
-                    value={newTopic}
-                    onChange={(e) => setNewTopic(e.target.value)}
-                />
+            <div className="create-subtopic">
                 <Button
-                    disabled={!newTopic}
-                    type="primary"
-                    htmlType="submit"
-                    onClick={handleAddTopic}
-                >Add</Button>
+                    onClick={() => setIsAdding(true)}
+                    icon="plus-circle"
+                    type="primary">Create
+                </Button>
             </div>
             <Table
                 columns={columns}

@@ -1,10 +1,11 @@
 import { Button, Table } from 'antd';
 import React, { useState } from 'react';
 import './sutopics.css';
+import AddSubTopicModal from './AddSubTopicModal/addSubTopicModal';
 
 export default () => {
 
-    const [ newSubtopic, setNewSubtopic ] = useState('');
+    const [ isAdding, setIsAdding ] = useState(false);
 
     const columns = [
         {
@@ -39,9 +40,17 @@ export default () => {
 
     return (
         <div>
+            { isAdding ?
+                <AddSubTopicModal
+                    isOpen={isAdding}
+                    toggleModal={setIsAdding}
+                    onClose={() => {} }
+                /> : null
+            }
             <h1>Subtopics</h1>
             <div className="create-subtopic">
                 <Button
+                    onClick={() => setIsAdding(true)}
                     icon="plus-circle"
                     type="primary">Create
                 </Button>
