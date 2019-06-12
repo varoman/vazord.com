@@ -28,9 +28,8 @@ export default () => {
                     <Link to='/admin/dashboard/topics'/>Topics
                 </Menu.Item>
                 <Menu.Item className="Navigation-text">
-                    <Link to='/admin/dashboard/subtopics'/>Subtopics
+                    <Link to='/admin/dashboard/articles'/>Articles
                 </Menu.Item>
-                <Menu.Item className="Navigation-text">Articles</Menu.Item>
                 <Menu.Item className="Navigation-text logout"><Logout/></Menu.Item>
             </Menu>
         </Sider>

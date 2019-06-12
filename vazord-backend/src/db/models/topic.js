@@ -1,5 +1,6 @@
 const sequelize = require('../../db/');
 const { STRING } = require('sequelize');
+const Article = require('./article');
 
 
 const Topic = sequelize.define('Topic', {
@@ -11,5 +12,9 @@ const Topic = sequelize.define('Topic', {
         }
     },
 }, {});
+
+Article.belongsTo(Topic, { foreignKey: 'topicId', as: 'topic' });
+Topic.hasMany(Article, { foreignKey: 'topicId', as: 'articles' });
+
 
 module.exports = Topic;

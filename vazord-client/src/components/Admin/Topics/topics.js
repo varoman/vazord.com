@@ -49,11 +49,6 @@ export default () => {
             render: text => <span>{text}</span>,
         },
         {
-            title: 'Subtopics',
-            dataIndex: 'subtopics',
-            key: 'subtopics',
-        },
-        {
             title: 'Articles',
             dataIndex: 'articles',
             key: 'articles',
@@ -78,7 +73,6 @@ export default () => {
         acc.push({
             key: curr.id,
             title: curr.title,
-            subtopics: 0,
             articles: 0
         });
 
@@ -111,7 +105,7 @@ export default () => {
                 /> : null
             }
             <h1>Topics</h1>
-            <div className="create-subtopic">
+            <div className="create-article">
                 <Button
                     onClick={() => setIsAdding(true)}
                     icon="plus-circle"

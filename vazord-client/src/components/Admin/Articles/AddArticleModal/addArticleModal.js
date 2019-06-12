@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Input, Modal, Select } from 'antd';
 import api from '../../../../axios';
-import './addSubTopicModal.css';
+import './addArticleModal.css';
 const { Option } = Select;
 
 
@@ -16,7 +16,10 @@ const renderOptions = topics => topics
 
 export default ({ isOpen, toggleModal, onClose }) => {
 
-    const [ subTopicTitle, setSubTopicTitle ] = useState('');
+    const [ title, setArticleTitle ] = useState('');
+    const [ content, setArticleContent ] = useState('');
+    const [ publicUrl, setArticleUrl ] = useState('');
+    const [ topicId, setTopicId ] = useState('');
     const [ topics, setTopics ] = useState([]);
 
     useEffect(() => {
@@ -25,7 +28,7 @@ export default ({ isOpen, toggleModal, onClose }) => {
 
     const handleAddTopic = () => {
         api
-            .post('/topic/create', { title: subTopicTitle})
+            .post('/article/create', { title, topicId, publicUrl, content })
             .then((res) => {
                 onClose(res.message);
                 toggleModal(false);
@@ -38,15 +41,20 @@ export default ({ isOpen, toggleModal, onClose }) => {
             .then(res =>  setTopics(res));
     };
 
+    const handleArticleNameChange = (e) => {
+        setArticleUrl(e.target.value.replace(/\s/g, '-'));
+        setArticleTitle(e.target.value)
+    };
+
     return (
         <div>
             <Modal
-                title="Add Subtopic"
+                title="Add Article"
                 centered
                 visible={isOpen}
                 okText="Save"
                 onOk={handleAddTopic}
-                okButtonProps={{ disabled: !subTopicTitle }}
+                okButtonProps={{ disabled: !title || !topicId }}
                 onCancel={() => toggleModal(false)}
             >
                 <div className="select-topic">
@@ -56,7 +64,7 @@ export default ({ isOpen, toggleModal, onClose }) => {
                                 style={{ width: 200 }}
                                 showSearch
                                 placeholder="Select parent topic"
-                                onChange={(value) => console.log(value, 'value')}
+                                onChange={setTopicId}
                             >
                                 { renderOptions(topics) }
                             </Select>
@@ -66,10 +74,26 @@ export default ({ isOpen, toggleModal, onClose }) => {
                 <div className="topic-input">
                     <Input
                         required
-                        className="subtopic-input-item"
-                        placeholder="Enter subtopic title"
-                        value={subTopicTitle}
-                        onChange={(e) => setSubTopicTitle(e.target.value)}
+                        className="article-input-item"
+                        placeholder="Enter article title"
+                        value={title}
+                        onChange={handleArticleNameChange}
+                    />
+                    <Input
+                        required
+                        style={{ display: 'block'}}
+                        className="article-input-item"
+                        placeholder="Enter public url"
+                        value={publicUrl}
+                        onChange={(e) => setArticleUrl(e.target.value)}
+                    />
+                    <Input
+                        required
+                        style={{ display: 'block'}}
+                        className="article-input-item"
+                        placeholder="Enter article content"
+                        value={content}
+                        onChange={(e) => setArticleContent(e.target.value)}
                     />
                 </div>
             </Modal>

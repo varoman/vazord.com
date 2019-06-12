@@ -1,4 +1,5 @@
 const Topic = require('../../db/models/topic');
+const Article = require('../../db/models/article');
 const { CREATED, BAD_REQUEST, SERVER_ERR, OK } = require('../../utils/codes');
 const { TOPIC_CREATED, TOPIC_UPDATED, TOPIC_DELETED } = require('../../utils/messages');
 
@@ -30,7 +31,7 @@ const remove = (req, res) => {
 
 const list = (req, res) => {
     Topic
-        .findAll()
+        .findAll({ include: [{ model: Article, as: 'articles' }]})
         .then(topics => res.send(topics))
         .catch(err => res.status(SERVER_ERR).json({ message: err }));
 };

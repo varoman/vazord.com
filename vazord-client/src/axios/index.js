@@ -17,7 +17,7 @@ instance.interceptors.request.use(config => {
 const showError = text => {
     notification.error({
         message: 'Error',
-        description: text
+        description: text.toString()
     });
 };
 

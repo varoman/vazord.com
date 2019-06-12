@@ -1,11 +1,29 @@
 import { Button, Table } from 'antd';
-import React, { useState } from 'react';
-import './sutopics.css';
-import AddSubTopicModal from './AddSubTopicModal/addSubTopicModal';
+import React, {useEffect, useState} from 'react';
+import './articles.css';
+import AddArticleModal from './AddArticleModal/addArticleModal';
+import { SuccessModal } from '../../../components';
+import api from '../../../axios';
 
 export default () => {
 
     const [ isAdding, setIsAdding ] = useState(false);
+    const [ articles, setArticles ] = useState([]);
+
+    useEffect(() => {
+        getArticles();
+    }, [ ]);
+
+    const getArticles = () => {
+        api
+            .get('/article/all')
+            .then(res => setArticles(res));
+    };
+
+    const handleModalClose = message => {
+        SuccessModal(message);
+        getArticles();
+    };
 
     const columns = [
         {
@@ -18,11 +36,6 @@ export default () => {
             title: 'Parent Topic',
             dataIndex: 'parentTopic',
             key: 'parentTopic',
-        },
-        {
-            title: 'Articles',
-            dataIndex: 'articles',
-            key: 'articles',
         },
         {
             title: 'Action',
@@ -38,17 +51,27 @@ export default () => {
         },
     ];
 
+    const data = articles.reduce((acc, curr) => {
+        acc.push({
+            key: curr.id,
+            parentTopic: curr.topic.title,
+            ...curr
+        });
+
+        return acc;
+    }, []);
+
     return (
         <div>
             { isAdding ?
-                <AddSubTopicModal
+                <AddArticleModal
                     isOpen={isAdding}
                     toggleModal={setIsAdding}
-                    onClose={() => {} }
+                    onClose={handleModalClose}
                 /> : null
             }
-            <h1>Subtopics</h1>
-            <div className="create-subtopic">
+            <h1>Articles</h1>
+            <div className="create-article">
                 <Button
                     onClick={() => setIsAdding(true)}
                     icon="plus-circle"
@@ -57,7 +80,7 @@ export default () => {
             </div>
             <Table
                 columns={columns}
-                dataSource={[]}
+                dataSource={data}
                 pagination={false}
             />
         </div>
