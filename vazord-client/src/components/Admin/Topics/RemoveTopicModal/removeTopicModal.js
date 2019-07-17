@@ -27,7 +27,7 @@ export default ({ isOpen, toggleModal, selectedTopic, onClose }) => {
                 <p>You are going to delete <strong>{selectedTopic.title}</strong> topic.</p>
                 { selectedTopic.articles > 0 ?
                     <div>
-                        <p>This topic contains <strong>{selectedTopic.articles} articles</strong>.</p>
+                        <p>This topic contains <strong>{selectedTopic.articles} article(s)</strong>.</p>
                     </div>
                     : null
                 }

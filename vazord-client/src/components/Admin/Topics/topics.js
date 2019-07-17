@@ -73,7 +73,7 @@ export default () => {
         acc.push({
             key: curr.id,
             title: curr.title,
-            articles: 0
+            articles: curr.articles.length
         });
 
         return acc;
