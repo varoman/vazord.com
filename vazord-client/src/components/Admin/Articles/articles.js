@@ -1,11 +1,11 @@
-import { Button, Table } from 'antd';
 import React, {useEffect, useState} from 'react';
+import { Button, Table } from 'antd';
 import './articles.css';
 import AddArticleModal from './AddArticleModal/addArticleModal';
-import { SuccessModal } from '../../../components';
 import api from '../../../axios';
 
-export default () => {
+
+export default (props) => {
 
     const [ isAdding, setIsAdding ] = useState(false);
     const [ articles, setArticles ] = useState([]);
@@ -20,10 +20,8 @@ export default () => {
             .then(res => setArticles(res));
     };
 
-    const handleModalClose = message => {
-        SuccessModal(message);
-        getArticles();
-    };
+    const handleAddArticleModalClose = ({ topicId, title, publicUrl}) =>
+		props.history.push(`/admin/dashboard/create-article?topic=${topicId}&title=${title}&url=${publicUrl}`);
 
     const columns = [
         {
@@ -67,7 +65,7 @@ export default () => {
                 <AddArticleModal
                     isOpen={isAdding}
                     toggleModal={setIsAdding}
-                    onClose={handleModalClose}
+                    onClose={handleAddArticleModalClose}
                 /> : null
             }
             <h1>Articles</h1>

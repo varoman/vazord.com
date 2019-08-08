@@ -17,7 +17,6 @@ const renderOptions = topics => topics
 export default ({ isOpen, toggleModal, onClose }) => {
 
     const [ title, setArticleTitle ] = useState('');
-    const [ content, setArticleContent ] = useState('');
     const [ publicUrl, setArticleUrl ] = useState('');
     const [ topicId, setTopicId ] = useState('');
     const [ topics, setTopics ] = useState([]);
@@ -26,13 +25,9 @@ export default ({ isOpen, toggleModal, onClose }) => {
         getTopics();
     }, [ ]);
 
-    const handleAddTopic = () => {
-        api
-            .post('/article/create', { title, topicId, publicUrl, content })
-            .then((res) => {
-                onClose(res.message);
-                toggleModal(false);
-            });
+    const handleAddArticle = () => {
+    	onClose({ title, topicId, publicUrl });
+    	toggleModal(false);
     };
 
     const getTopics = () => {
@@ -52,8 +47,8 @@ export default ({ isOpen, toggleModal, onClose }) => {
                 title="Add Article"
                 centered
                 visible={isOpen}
-                okText="Save"
-                onOk={handleAddTopic}
+                okText="Create content"
+                onOk={handleAddArticle}
                 okButtonProps={{ disabled: !title || !topicId }}
                 onCancel={() => toggleModal(false)}
             >
@@ -86,14 +81,6 @@ export default ({ isOpen, toggleModal, onClose }) => {
                         placeholder="Enter public url"
                         value={publicUrl}
                         onChange={(e) => setArticleUrl(e.target.value)}
-                    />
-                    <Input
-                        required
-                        style={{ display: 'block'}}
-                        className="article-input-item"
-                        placeholder="Enter article content"
-                        value={content}
-                        onChange={(e) => setArticleContent(e.target.value)}
                     />
                 </div>
             </Modal>

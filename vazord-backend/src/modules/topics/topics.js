@@ -31,8 +31,12 @@ const remove = (req, res) => {
 
 const list = (req, res) => {
     Topic
-        .findAll({ include: [{ model: Article, as: 'articles' }]})
-        .then(topics => res.send(topics))
+        .findAll({ include: [{
+        	model: Article,
+			as: 'articles',
+			attributes: [ 'title' , 'publicUrl', 'id', 'topicId' ] }]
+        })
+		.then(topics => res.send(topics))
         .catch(err => res.status(SERVER_ERR).json({ message: err }));
 };
 

@@ -6,6 +6,7 @@ import Topics from '../Topics/topics'
 import { Layout } from 'antd';
 import Welcome from '../Welcome/welcome';
 import Articles from '../Articles/articles'
+import CreateArticleContent from '../Articles/CreateArticleContent/createArticleContent';
 
 
 const { Content } = Layout;
@@ -20,7 +21,8 @@ export default () => {
                 <Content className="App-content">
                     <Route path="/admin/dashboard/topics" component={Topics} />
                     <Route path="/admin/dashboard/articles" component={Articles} />
-                    <Route path="/admin/dashboard" exact component={Welcome} />
+					<Route path="/admin/dashboard/create-article" component={CreateArticleContent} />
+					<Route path="/admin/dashboard" exact component={Welcome} />
                 </Content>
             </Layout>
         </Layout>

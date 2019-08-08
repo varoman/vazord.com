@@ -1,7 +1,7 @@
 const Article = require('../../db/models/article');
 const Topic = require('../../db/models/topic');
-const { CREATED, BAD_REQUEST, SERVER_ERR } = require('../../utils/codes');
-const { ARTICLE_CREATED } = require('../../utils/messages');
+const { CREATED, BAD_REQUEST, SERVER_ERR, NOT_FOUND } = require('../../utils/codes');
+const { ARTICLE_CREATED, ARTICLE_NOT_FOUND } = require('../../utils/messages');
 
 
 const create = (req, res) => {
@@ -23,8 +23,23 @@ const list = (req, res) => {
         });
 };
 
+const getOne = (req, res) => {
+	const { id } = req.params;
+	Article
+		.findOne({ where: { id } } )
+		.then(articles => {
+			if (!articles)
+				return res.status(NOT_FOUND).json({ message: ARTICLE_NOT_FOUND});
+			res.send(articles)
+		})
+		.catch(err => {
+			res.status(SERVER_ERR).json({ message: err })
+		});
+};
+
 
 module.exports = {
     create,
     list,
+	getOne,
 };

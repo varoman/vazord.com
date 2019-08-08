@@ -8,26 +8,28 @@ import './sidebar.css';
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
-const generateSubcategories = subcategories => {
+const generateArticles = articles => {
     let nodes = [];
-    subcategories.map( subcategory => {
+	articles.map( ({ id, publicUrl, title, topicId }) => {
         nodes.push(
-            <Menu.Item key={subcategory.id}><Link to={`/articles/${subcategory.publicUrl}`}>{subcategory.title}</Link></Menu.Item>
+            <Menu.Item
+				key={id}><Link to={`/articles/${publicUrl}?id=${id}&topic=${topicId}`}>{title}</Link
+			></Menu.Item>
         );
         return null;
     });
     return nodes;
 };
 
-const generateCategories = topics => {
+const generateTopics = topics => {
     let nodes = [];
-    topics.map((content, key) => {
+    topics.map(({ id, title, articles }) => {
         nodes.push(
             <SubMenu
-                key={key}
-                title={<span className="Navigation-text">{content.title}</span>}
+                key={id}
+                title={<span className="Navigation-text">{title}</span>}
             >
-                {generateSubcategories(content.articles)}
+                {generateArticles(articles)}
             </SubMenu>
         );
         return null;
@@ -54,10 +56,12 @@ export default () => {
             width="300px"
         >
             <Menu
+				openKeys={[]}
+				selectedKeys={[]}
                 className="Navigation-container"
                 mode="inline"
             >
-                {generateCategories(topics)}
+                {generateTopics(topics)}
             </Menu>
         </Sider>
     );

@@ -8,6 +8,7 @@ module.exports = {
     NOT_AUTHORIZED: 'You are not authorized',
     TOPIC_CREATED: 'Topic created successfully',
     ARTICLE_CREATED: 'Article created successfully',
-    TOPIC_UPDATED: 'Topic successfully updated',
-    TOPIC_DELETED: 'Topic deleted successfully'
+	ARTICLE_NOT_FOUND: 'Article was not found',
+	TOPIC_UPDATED: 'Topic successfully updated',
+	TOPIC_DELETED: 'Topic deleted successfully'
 };
