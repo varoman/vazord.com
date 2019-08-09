@@ -2,31 +2,29 @@ import React, { useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { Button } from 'antd';
 import queryString  from 'query-string';
-import api from '../../../../axios'
+import api from '../../../../axios';
+import { uploadImage } from '../../../../firebase';
 
 
 export default (props) => {
 
 	const [ content, setContent ] = useState('');
 
-	const onContentChange = (value, b) => {
-		setContent(value);
-		console.log(content, 'content')
-	};
+	const onContentChange = value => setContent(value);
 
-	const testim = (blob, scs, fl) => {
-		console.log(blob.base64(), 'blob');
-		console.log(scs, 'sc');
-		console.log(fl, 'fl')
+	const testim = (file, successFn, failFn) => {
+		const fileName = file.name();
+		const blob = file.blob();
+		uploadImage(fileName, blob)
+			.then(url => successFn(url))
+			.catch(err => failFn(err));
 	};
 
 	const handleCreateArticle = () => {
 		const { title, topic, url } =  queryString.parse(props.location.search);
 		api
 			.post('/article/create', { title, topicId: topic, publicUrl: url, content })
-			.then((res) => {
-				props.history.push('admin/dashboard/articles');
-			});
+			.then(() => props.history.push('/admin/dashboard/articles'));
 	};
 
 	return (
@@ -34,12 +32,12 @@ export default (props) => {
 			<Editor
 				value={content}
 				apiKey="mwn0jbm0zvbw0f0dk3aw9y8ofrpj82d2prf7wxpzol5ubwb1"
+				onEditorChange={onContentChange}
 				init={{
 					plugins: 'link table image',
 					image_uploadtab: true,
-					images_upload_url: 'test.me',
-					images_upload_handler: testim}}
-				onEditorChange={onContentChange}
+					images_upload_handler: testim
+				}}
 			/>
 			<div>
 				<Button
@@ -52,6 +50,5 @@ export default (props) => {
 				</Button>
 			</div>
 		</div>
-
 	);
 };

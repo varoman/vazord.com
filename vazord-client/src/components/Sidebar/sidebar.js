@@ -56,8 +56,6 @@ export default () => {
             width="300px"
         >
             <Menu
-				openKeys={[]}
-				selectedKeys={[]}
                 className="Navigation-container"
                 mode="inline"
             >
