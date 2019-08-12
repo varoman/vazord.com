@@ -7,7 +7,9 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(config => {
-    const token = (localStorage.getItem('token') || '');
+	document.body.classList.add('loading-indicator');
+
+	const token = (localStorage.getItem('token') || '');
     config.headers.Authorization = `JWT ${token}`;
     return config;
 },  (error) => {
@@ -22,9 +24,13 @@ const showError = text => {
 };
 
 instance.interceptors.response.use(
-    response => response.data,
+    response => {
+		document.body.classList.remove('loading-indicator');
+		return response.data
+	},
     error => {
-        let message = 'something went wrong :(';
+		document.body.classList.remove('loading-indicator');
+		let message = 'something went wrong :(';
         if (error && error.response && error.response.data)
             message = error.response.data.message;
         showError(message);
