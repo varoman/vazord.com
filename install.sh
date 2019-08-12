@@ -3,5 +3,5 @@
 cd "$(dirname "$0")/vazord-client"
 npm install &
 
-cd "$(dirname "$0")/vazord-backend"
+cd "$(dirname "$0")/../vazord-backend"
 npm install
