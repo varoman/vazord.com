@@ -26,7 +26,7 @@ const remove = (req, res) => {
     Topic
         .destroy({ where: { id } })
         .then(() => res.status(OK).json({ message: TOPIC_DELETED }))
-        .catch(err => res.status(BAD_REQUEST).json({ message: err.errors[0].message }));
+        .catch(err => res.status(BAD_REQUEST).json({ message: err.original.detail }));
 };
 
 const list = (req, res) => {
@@ -37,7 +37,7 @@ const list = (req, res) => {
 			attributes: [ 'title' , 'publicUrl', 'id', 'topicId' ] }]
         })
 		.then(topics => res.send(topics))
-        .catch(err => res.status(SERVER_ERR).json({ message: err }));
+        .catch(err => console.log(err, 'err') || res.status(SERVER_ERR).json({ message: err }));
 };
 
 

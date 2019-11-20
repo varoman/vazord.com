@@ -20,8 +20,12 @@ const Article = sequelize.define('Articles', {
     },
     // reference to Topic model
     topicId: {
-        type: INTEGER,
-        allowNull: false
+		references: {
+			model: 'Topics',
+			key: 'id',
+		},
+		allowNull: false,
+		type: INTEGER
     }
 }, {});
 

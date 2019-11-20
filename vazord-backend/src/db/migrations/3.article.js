@@ -25,7 +25,11 @@ module.exports = {
             topicId: {
                 references: {
                     model: 'Topics',
+					key: 'id',
+					as: 'topicId',
                 },
+				onUpdate: 'cascade',
+				onDelete: 'cascade',
                 allowNull: false,
                 type: INTEGER
             },
