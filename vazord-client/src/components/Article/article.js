@@ -12,8 +12,9 @@ export default (props) => {
 	useEffect(() => {
 		api
 			.get(`/article/${id}`)
-			.then(res => setArticle(res));
-	}, [ id ]);
+			.then(res => setArticle(res))
+			.catch(() => props.history.push('/'))
+	}, [ id, props.history ]);
 
 
 

@@ -25,11 +25,6 @@ export default ({ isOpen, toggleModal, onClose }) => {
         getTopics();
     }, [ ]);
 
-    const handleAddArticle = () => {
-    	onClose({ title, topicId, publicUrl });
-    	toggleModal(false);
-    };
-
     const getTopics = () => {
         api
             .get('/topic/all')
@@ -40,6 +35,13 @@ export default ({ isOpen, toggleModal, onClose }) => {
         setArticleUrl(e.target.value.replace(/\s/g, '-'));
         setArticleTitle(e.target.value)
     };
+
+    const handleTopicChange = id => setTopicId(id);
+
+	const handleAddArticle = () => {
+		onClose({ title, topicId, publicUrl });
+		toggleModal(false);
+	};
 
     return (
         <div>
@@ -59,7 +61,7 @@ export default ({ isOpen, toggleModal, onClose }) => {
                                 style={{ width: 200 }}
                                 showSearch
                                 placeholder="Select parent topic"
-                                onChange={setTopicId}
+                                onChange={handleTopicChange}
                             >
                                 { renderOptions(topics) }
                             </Select>

@@ -5,7 +5,7 @@ import { Sidebar, Article, Admin, AppHeader, Welcome }  from './components';
 import './App.css';
 
 
-const { Content } = Layout;
+const { Content, Footer } = Layout;
 
 const App = () =>  (
     <BrowserRouter>
@@ -22,6 +22,7 @@ const App = () =>  (
                                 <Route path="/articles/:articleTitle" component={Article} />
                             </Content>
                         </Layout>
+						<Footer style={{ backgroundColor: '#1C9BF7'}}>vazord.com 2020</Footer>
                     </Layout>
                 </div>
             )} />
