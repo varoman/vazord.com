@@ -1,6 +1,6 @@
 const Article = require('../../db/models/article');
 const Topic = require('../../db/models/topic');
-const { CREATED, BAD_REQUEST, SERVER_ERR, NOT_FOUND } = require('../../utils/codes');
+const { CREATED, BAD_REQUEST, SERVER_ERR, NOT_FOUND, DELETED } = require('../../utils/codes');
 const { ARTICLE_CREATED, ARTICLE_NOT_FOUND } = require('../../utils/messages');
 
 
@@ -37,9 +37,18 @@ const getOne = (req, res) => {
 		});
 };
 
+const remove = (req, res) => {
+	const { id } = req.body;
+	Article
+		.destroy({ where: { id } })
+		.then(() => res.status(DELETED).end())
+		.catch(err => res.status(BAD_REQUEST).json({ message: err.original.detail }));
+};
+
 
 module.exports = {
     create,
     list,
 	getOne,
+	remove,
 };
