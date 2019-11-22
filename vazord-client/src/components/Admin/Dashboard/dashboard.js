@@ -22,6 +22,7 @@ export default () => {
                     <Route path="/admin/dashboard/topics" component={Topics} />
                     <Route path="/admin/dashboard/articles" component={Articles} />
 					<Route path="/admin/dashboard/create-article" component={CreateArticleContent} />
+					<Route path="/admin/dashboard/account" component={() => <h1>HELLO</h1>} />
 					<Route path="/admin/dashboard" exact component={Welcome} />
                 </Content>
             </Layout>

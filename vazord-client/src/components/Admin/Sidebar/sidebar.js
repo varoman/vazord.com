@@ -30,6 +30,9 @@ export default () => {
                 <Menu.Item className="Navigation-text">
                     <Link to='/admin/dashboard/articles'/>Articles
                 </Menu.Item>
+				<Menu.Item className="Navigation-text">
+					<Link to='/admin/dashboard/account'/>Account
+				</Menu.Item>
                 <Menu.Item className="Navigation-text logout"><Logout/></Menu.Item>
             </Menu>
         </Sider>

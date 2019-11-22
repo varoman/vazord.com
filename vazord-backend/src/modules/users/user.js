@@ -1,6 +1,6 @@
 const User = require('../../db/models/user');
 const { BAD_REQUEST, CREATED } = require('../../utils/codes');
-const { USER_CREATED, USER_CREATE_FAIL, USER_EXISTS } = require('../../utils/messages');
+const { USER_CREATED, USER_EXISTS } = require('../../utils/messages');
 
 
 const create = async (req, res) => {

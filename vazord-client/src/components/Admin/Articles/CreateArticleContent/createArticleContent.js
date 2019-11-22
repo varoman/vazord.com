@@ -60,7 +60,7 @@ export default (props) => {
 				apiKey="mwn0jbm0zvbw0f0dk3aw9y8ofrpj82d2prf7wxpzol5ubwb1"
 				onEditorChange={onContentChange}
 				init={{
-					height: 500,
+					height: 800,
 					plugins: 'link table image preview emoticons media lists',
 					image_uploadtab: true,
 					images_upload_handler: uploadImageHandler
