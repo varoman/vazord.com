@@ -1,7 +1,6 @@
 import * as firebase from "firebase/app";
 import 'firebase/firebase-storage';
 
-/*
 const {
 	REACT_APP_FIREBASE_API_KEY,
 	REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -9,13 +8,11 @@ const {
 	REACT_APP_FIREBASE_STORAGE_BUCKET
 } = process.env;
 
-*/
-
 const firebaseConfig = {
-	apiKey: 'AIzaSyBKvjtlb128cgaTHo6Xrzdp3meRnReHT3o',
-	authDomain: 'vazord-39a84.firebaseapp.com',
-	projectId: 'vazord-39a84',
-	storageBucket: 'vazord-39a84.appspot.com',
+	apiKey: REACT_APP_FIREBASE_API_KEY,
+	authDomain: REACT_APP_FIREBASE_AUTH_DOMAIN,
+	projectId: REACT_APP_FIREBASE_PROJECT_ID,
+	storageBucket: REACT_APP_FIREBASE_STORAGE_BUCKET,
 };
 
 firebase.initializeApp(firebaseConfig);
