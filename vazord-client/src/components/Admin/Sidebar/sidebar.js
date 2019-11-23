@@ -5,6 +5,8 @@ import '../../../components/Sidebar/sidebar.css';
 
 
 const { Sider } = Layout;
+const { SubMenu } = Menu;
+
 
 const handleLogout = history => {
     localStorage.clear();
@@ -24,12 +26,15 @@ export default () => {
                 className="Navigation-container"
                 mode="inline"
             >
-                <Menu.Item className="Navigation-text">
-                    <Link to='/admin/dashboard/topics'/>Topics
-                </Menu.Item>
-                <Menu.Item className="Navigation-text">
-                    <Link to='/admin/dashboard/articles'/>Articles
-                </Menu.Item>
+				<SubMenu title="Manage Content" className="Navigation-text">
+					<Menu.Item className="Navigation-text">
+						<Link to='/admin/dashboard/topics'/>Topics
+					</Menu.Item>
+					<Menu.Item className="Navigation-text">
+						<Link to='/admin/dashboard/articles'/>Articles
+					</Menu.Item>
+				</SubMenu>
+
 				<Menu.Item className="Navigation-text">
 					<Link to='/admin/dashboard/account'/>Account
 				</Menu.Item>
