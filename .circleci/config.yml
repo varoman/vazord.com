@@ -1,13 +1,13 @@
 version: 2
 jobs:
-  one:
+  client:
     environment:
-      HEROKU_APP_NAME: vazord-api
+      HEROKU_APP_NAME: vazord-cient
     docker:
       - image: buildpack-deps:trusty
     steps:
       - checkout
-      - run: cd vazord-backend
+      - run: cd vazord-client
       - run: bash .circleci/setup-heroku.sh
       - add_ssh_keys:
           fingerprints:
@@ -18,23 +18,26 @@ jobs:
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
                     git push --force git@heroku.com:$HEROKU_APP_NAME.git HEAD:refs/heads/master
             fi
-  two:
+  api:
     environment:
-      HEROKU_APP_NAME: vazord-client
+      HEROKU_APP_NAME: vazord-api
     docker:
       - image: buildpack-deps:trusty
     steps:
       - checkout
-      - run: cd vazord-client
-      - run:
+      - run: cd vazord-backend
+      - run: bash .circleci/setup-heroku.sh
+      - add_ssh_keys:
+          fingerprints:
+             - $HEROKU_SSH_FINGERPRINT
           name: Deploy Api to Heroku
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                                git push --force git@heroku.com:$HEROKU_APP_NAME.git HEAD:refs/heads/master
+                  git push --force git@heroku.com:$HEROKU_APP_NAME.git HEAD:refs/heads/master
             fi
 workflows:
   version: 2
   one_and_two:
     jobs:
-      - one
-      - two
+      - client
+      - api
