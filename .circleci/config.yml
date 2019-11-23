@@ -5,7 +5,7 @@ jobs:
       - image: buildpack-deps:trusty
     steps:
       - checkout
-      - run: cd ./vazord-backend/
+      - run: cd vazord-backend
       - run:
           name: Deploy Front-End to Heroku
           command: |
@@ -15,7 +15,7 @@ jobs:
       - image: buildpack-deps:trusty
     steps:
       - checkout
-      - - run: cd ./vazord-client/
+      - run: cd vazord-client
       - run:
           name: Deploy Api to Heroku
           command: |
