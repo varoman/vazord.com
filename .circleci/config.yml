@@ -2,7 +2,7 @@ version: 2
 jobs:
   client:
     environment:
-      HEROKU_APP_NAME: vazord-cient
+      HEROKU_APP_NAME: vazord-client
     docker:
       - image: buildpack-deps:trusty
     steps:
