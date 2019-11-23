@@ -1,8 +1,10 @@
 const Sequelize = require('sequelize');
-const { username, password, database, host, dialect } = require('./config/database').development;
+const { NODE_ENV } = process.env;
+const { username, password, database, host, dialect } = require('./config/database')[NODE_ENV];
+const { DATABASE_URL } = process.env;
 
-
-const sequelize = new Sequelize(database, username, password, { host, dialect } );
+const options = DATABASE_URL ? [ DATABASE_URL ] : [ database, username, password, { host, dialect } ];
+const sequelize = new Sequelize(...options);
 
 sequelize
     .authenticate()

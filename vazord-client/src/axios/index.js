@@ -1,10 +1,12 @@
 import axios from 'axios';
 import { notification } from 'antd';
 
+const { REACT_APP_NODE_ENV } = process.env;
 
-const instance = axios.create({
-    baseURL: 'http://localhost:5000/api',
-});
+const baseURL  = REACT_APP_NODE_ENV === 'heroku' ? 'https://vazord-api.herokuapp.com/api' : 'http://localhost:5000/api';
+
+
+const instance = axios.create({ baseURL });
 
 instance.interceptors.request.use(config => {
 	document.body.classList.add('loading-indicator');

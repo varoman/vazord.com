@@ -1,5 +1,5 @@
-FROM node:12.2.0-alpine
-WORKDIR app/
-COPY .  /app
+FROM node:12
+WORKDIR /app
+COPY . .
 RUN npm install
 CMD ["npm", "start"]
