@@ -1,10 +1,10 @@
 version: 2
 jobs:
   one:
-    docker:
-      - image: buildpack-deps:trusty
     environment:
       HEROKU_APP_NAME: vazord-api
+    docker:
+      - image: buildpack-deps:trusty
     steps:
       - checkout
       - run: cd vazord-backend
@@ -19,10 +19,10 @@ jobs:
                     git push --force git@heroku.com:$HEROKU_APP_NAME.git HEAD:refs/heads/master
             fi
   two:
+    environment:
+      HEROKU_APP_NAME: vazord-client
     docker:
       - image: buildpack-deps:trusty
-      environment:
-        HEROKU_APP_NAME: vazord-client
     steps:
       - checkout
       - run: cd vazord-client
