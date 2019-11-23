@@ -4,8 +4,6 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Sidebar, Article, Admin, AppHeader, Welcome }  from './components';
 import './App.css';
 
-alert('worked, yeah');
-
 const { Content, Footer } = Layout;
 
 const App = () =>  (
