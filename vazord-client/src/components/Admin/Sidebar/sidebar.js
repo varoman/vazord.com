@@ -15,7 +15,14 @@ const handleLogout = history => {
 
 const Logout = withRouter(({ history }) => (<p onClick={() => handleLogout(history)}>Logout</p>));
 
-const isSuper = JSON.parse(localStorage.getItem('user') || {}).role === 'super';
+let isSuper;
+
+try {
+	isSuper = JSON.parse(localStorage.getItem('user') || {}).role === 'super';
+} catch (e) {
+	console.warn(e);
+	isSuper = false;
+}
 
 export default () => {
 
