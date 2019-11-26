@@ -36,6 +36,7 @@ export default (props) => {
         })
             .then((res) => {
                 Notifications.showSuccess(res.message);
+                localStorage.clear();
                 props.history.push('/admin');
             });
     };

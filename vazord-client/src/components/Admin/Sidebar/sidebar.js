@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import '../../../components/Sidebar/sidebar.css';
@@ -15,16 +15,18 @@ const handleLogout = history => {
 
 const Logout = withRouter(({ history }) => (<p onClick={() => handleLogout(history)}>Logout</p>));
 
-let isSuper;
-
-try {
-	isSuper = JSON.parse(localStorage.getItem('user') || {}).role === 'super';
-} catch (e) {
-	console.warn(e);
-	isSuper = false;
-}
-
 export default () => {
+
+	const [ isSuper, setIsSuper ] = useState(false);
+	useEffect(() => {
+		try {
+			const isSuper = JSON.parse(localStorage.getItem('user') || {}).role === 'super';
+			setIsSuper(isSuper)
+		} catch (e) {
+			console.warn(e);
+			setIsSuper(false);
+		}
+	},  [ isSuper ]);
 
 
     return (

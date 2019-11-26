@@ -1,6 +1,6 @@
 const User = require('../../db/models/user');
 const TempUser = require('../../db/models/temp-user');
-const { BAD_REQUEST, CREATED } = require('../../utils/codes');
+const { BAD_REQUEST, CREATED, NO_BODY } = require('../../utils/codes');
 const { USER_CREATED, USER_CREATED_EMAIL, USER_EXISTS, WRONG_TOKEN } = require('../../utils/messages');
 const sendEmail = require('../emails/');
 
@@ -56,6 +56,19 @@ const createTempUser = async (req, res) => {
         .catch(err => res.status(BAD_REQUEST).json( { message : err.errors[0].message }));
 };
 
+const list = async (req, res) => {
+    let users = await User.findAll({ attributes: [ 'id', 'email', 'name', 'role' ] });
+    users = users.filter(user => user.email !== req.user.email);
+    res.send(users);
+};
+
+const remove = (req, res) => {
+    const { id } = req.body;
+    User
+        .destroy({ where: { id }})
+        .then(res.sendStatus(NO_BODY));
+};
+
 const objectToBase64 = data => {
     const buff = new Buffer(JSON.stringify(data));
     return  buff.toString('base64');
@@ -74,4 +87,6 @@ const sendMail = ({ email, token, role }) => {
 module.exports = {
     create,
     createTempUser,
+    list,
+    remove,
 };

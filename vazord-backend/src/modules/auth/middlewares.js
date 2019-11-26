@@ -14,6 +14,7 @@ const isAuth = (req, res, next) => {
     jwt.verify(token, JWT_SECRET, (err, decoded) => {
         if (err)
             return res.status(UNAUTHORIZED).json({ message: NOT_AUTHORIZED});
+        req.user = decoded;
         next();
     });
 };

@@ -5,16 +5,19 @@ import fbIcon from '../../images/fb.png';
 import emailIcon from '../../images/email.png';
 import './header.css';
 
+
+const { REACT_APP_NODE_ENV } = process.env;
 const { Header } = Layout;
 
-export default () => {
+const baseURL  = REACT_APP_NODE_ENV === 'heroku' ? 'https://vazord-api.herokuapp.com' : 'http://localhost:3000';
 
+export default () => {
 	const onRedirectHome = () => {
-		const isAdmin = window.location.pathname.includes('/admin/');
-		if (isAdmin)
-			window.location.assign('http://localhost:3000/admin/dashboard');
+		const isAuth = localStorage.getItem('isAuth');
+		if (isAuth)
+			window.location.href = baseURL + '/admin/dashboard';
 		else
-			window.location.assign('http://localhost:3000/');
+			window.location.href =  baseURL;
 	};
 
 	return (
