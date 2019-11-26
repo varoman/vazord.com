@@ -4,7 +4,7 @@ import './articles.css';
 import AddArticleModal from './AddArticleModal/addArticleModal';
 import api from '../../../axios';
 import ConfirmRemovingModal from '../Articles/ConfirmRemovingModal/confirmRemovingModal';
-import { SuccessModal } from '../../../components';
+import { Notifications } from '../../../components';
 
 
 export default (props) => {
@@ -35,7 +35,7 @@ export default (props) => {
 		api
 			.post('/article/delete', { id: deleteItemIndex })
 			.then(res => {
-				SuccessModal('Article was deleted successfully!');
+				Notifications.showSuccess('Article was deleted successfully!');
 				setIsDeleting(false);
 				getArticles();
 			});
@@ -64,7 +64,7 @@ export default (props) => {
 		api
 			.post('/article/update', { article: { id: editItem.id, title: newTitle } })
 			.then(res => {
-				SuccessModal('Title was successfully updated!');
+				Notifications.showSuccess('Title was successfully updated!');
 				getArticles();
 				setIsEditing(false);
 				setEditItem(null);

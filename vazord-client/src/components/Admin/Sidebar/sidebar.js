@@ -15,7 +15,10 @@ const handleLogout = history => {
 
 const Logout = withRouter(({ history }) => (<p onClick={() => handleLogout(history)}>Logout</p>));
 
+const isSuper = JSON.parse(localStorage.getItem('user') || {}).role === 'super';
+
 export default () => {
+
 
     return (
         <Sider
@@ -34,10 +37,15 @@ export default () => {
 						<Link to='/admin/dashboard/articles'/>Articles
 					</Menu.Item>
 				</SubMenu>
-
 				<Menu.Item className="Navigation-text">
 					<Link to='/admin/dashboard/account'/>Account
 				</Menu.Item>
+				{ isSuper ?
+					<Menu.Item className="Navigation-text">
+						<Link to='/admin/dashboard/users'/>Users
+					</Menu.Item>
+					: null
+				}
                 <Menu.Item className="Navigation-text logout"><Logout/></Menu.Item>
             </Menu>
         </Sider>

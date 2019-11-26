@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button } from 'antd';
 import api from '../../../axios';
-import { SuccessModal } from '../../../components';
+import { Notifications } from '../../../components';
 import EditTopicModal from './EditTopicModal/editTopicModal';
 import RemoveTopicModal from './RemoveTopicModal/removeTopicModal';
 import AddTopicModal from './AddTopicModal/addTopicModal';
@@ -27,7 +27,7 @@ export default () => {
     };
 
     const handleModalClose = message => {
-        SuccessModal(message);
+        Notifications.showSuccess(message);
         getTopics();
     };
 

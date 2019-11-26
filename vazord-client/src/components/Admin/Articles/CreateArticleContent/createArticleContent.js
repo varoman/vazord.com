@@ -5,7 +5,7 @@ import { Button } from 'antd';
 import queryString  from 'query-string';
 import api from '../../../../axios';
 import { uploadImage } from '../../../../firebase';
-import { SuccessModal } from '../../../../components/';
+import { Notifications } from '../../../../components/';
 
 
 export default (props) => {
@@ -22,7 +22,7 @@ export default (props) => {
 				.then(res => setContent(res.content))
 				.catch(() => props.history.push('articles'));
 		}
-	}, [ editItemId, content, props.history, props.location ]);
+	}, [ editItemId, props.history, props.location ]);
 
 
 	const onContentChange = value => setContent(value);
@@ -49,7 +49,7 @@ export default (props) => {
 			.post(...postParams)
 			.then(() => {
 				props.history.push('articles');
-				SuccessModal('Article was successfully ' + action);
+				Notifications.showSuccess('Article was successfully ' + action);
 			});
 	};
 

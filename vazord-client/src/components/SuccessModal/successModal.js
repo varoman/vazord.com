@@ -1,3 +1,10 @@
 import { message } from 'antd';
 
-export default text => message.success(text);
+const showSuccess = text => message.success(text);
+const showError = text => message.error(text);
+// successModal
+
+export default {
+    showError,
+    showSuccess,
+}

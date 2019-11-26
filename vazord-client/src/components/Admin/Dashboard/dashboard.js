@@ -7,7 +7,8 @@ import { Layout } from 'antd';
 import Welcome from '../Welcome/welcome';
 import Articles from '../Articles/articles'
 import CreateArticleContent from '../Articles/CreateArticleContent/createArticleContent';
-
+import { Account } from '../';
+import { Users } from '../';
 
 const { Content } = Layout;
 
@@ -22,7 +23,8 @@ export default () => {
                     <Route path="/admin/dashboard/topics" component={Topics} />
                     <Route path="/admin/dashboard/articles" component={Articles} />
 					<Route path="/admin/dashboard/create-article" component={CreateArticleContent} />
-					<Route path="/admin/dashboard/account" component={() => <h1>HELLO</h1>} />
+					<Route path="/admin/dashboard/account" component={Account} />
+					<Route path="/admin/dashboard/users" component={Users} />
 					<Route path="/admin/dashboard" exact component={Welcome} />
                 </Content>
             </Layout>
